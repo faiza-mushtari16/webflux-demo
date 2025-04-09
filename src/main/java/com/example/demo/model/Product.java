@@ -21,5 +21,10 @@ public class Product {
     public String getId() {
         return id;
     }
+
+    public Product setId(String id) {
+        this.id = id;
+        return this;
+    }
 }
 

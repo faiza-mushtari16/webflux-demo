@@ -1,6 +1,7 @@
 package com.example.demo.repository;
 
 import com.example.demo.model.Product;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -17,15 +18,11 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Repository
+@RequiredArgsConstructor
 public class ProductRepository {
 
     private final DynamoDbEnhancedAsyncClient enhancedAsyncClient;
     private final DynamoDbAsyncClient dynamoDbAsyncClient;
-
-    public ProductRepository(DynamoDbEnhancedAsyncClient enhancedAsyncClient, DynamoDbAsyncClient dynamoDbAsyncClient) {
-        this.enhancedAsyncClient = enhancedAsyncClient;
-        this.dynamoDbAsyncClient = dynamoDbAsyncClient;
-    }
 
     public Mono<Product> save(Product product) {
         return Mono.fromCallable(() -> {

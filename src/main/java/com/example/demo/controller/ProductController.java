@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Product;
 import com.example.demo.service.ProductService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,23 +10,16 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/products")
 public class ProductController {
 
     private final ProductService service;
 
-    public ProductController(ProductService service) {
-        this.service = service;
-    }
-
     @PostMapping
     public Mono<ResponseEntity<Product>> create(@RequestBody Product product) {
-        try {
-            return service.create(product)
-                    .map(p -> ResponseEntity.status(HttpStatus.CREATED).body(p));
-        } catch (Exception ex) {
-            return Mono.error(ex);
-        }
+        return service.create(product)
+                .map(newProduct -> ResponseEntity.status(HttpStatus.CREATED).body(newProduct));
     }
 
     @GetMapping("/{id}")
@@ -48,6 +42,7 @@ public class ProductController {
 
     @DeleteMapping("/{id}")
     public Mono<ResponseEntity<Void>> delete(@PathVariable String id) {
-        return service.delete(id).thenReturn(ResponseEntity.noContent().build());
+        return service.delete(id)
+                .thenReturn(ResponseEntity.noContent().build());
     }
 }
