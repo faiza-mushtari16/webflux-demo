@@ -1,0 +1,327 @@
+{
+	"info": {
+		"_postman_id": "45c48508-9eab-4125-bc11-5126c45faa9a",
+		"name": "WebFlux Demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43894861",
+		"_collection_link": "https://faizamushtari.postman.co/workspace/Faiza-Mushtari's-Workspace~2cff6916-fdf3-4dfa-80f8-9d2a4ed330aa/collection/43894861-45c48508-9eab-4125-bc11-5126c45faa9a?action=share&source=collection_link&creator=43894861"
+	},
+	"item": [
+		{
+			"name": "create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Another product\",\n  \"price\": 200.00\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}/products",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "OK",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"First product\",\n  \"price\": 100.00\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/products",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "82"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"b1bcfda6-0c69-42f3-a382-294a849529c3\",\n    \"name\": \"First product\",\n    \"price\": 100\n}"
+				}
+			]
+		},
+		{
+			"name": "details",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{local}}/products/b1bcfda6-0c69-42f3-a382-294a849529c3",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"products",
+						"b1bcfda6-0c69-42f3-a382-294a849529c3"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "OK",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/products/b1bcfda6-0c69-42f3-a382-294a849529c3",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"products",
+								"b1bcfda6-0c69-42f3-a382-294a849529c3"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "82"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"b1bcfda6-0c69-42f3-a382-294a849529c3\",\n    \"name\": \"First product\",\n    \"price\": 100\n}"
+				}
+			]
+		},
+		{
+			"name": "list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{local}}/products",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "OK",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/products",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "transfer-encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": \"b1bcfda6-0c69-42f3-a382-294a849529c3\",\n        \"name\": \"First product\",\n        \"price\": 100\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"b1bcfda6-0c69-42f3-a382-294a849529c3\",\n    \"name\": \"First product\",\n    \"price\": 120.0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}/products/b1bcfda6-0c69-42f3-a382-294a849529c3",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"products",
+						"b1bcfda6-0c69-42f3-a382-294a849529c3"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "OK",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"b1bcfda6-0c69-42f3-a382-294a849529c3\",\n    \"name\": \"First product\",\n    \"price\": 110.0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/products/b1bcfda6-0c69-42f3-a382-294a849529c3",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"products",
+								"b1bcfda6-0c69-42f3-a382-294a849529c3"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "82"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"b1bcfda6-0c69-42f3-a382-294a849529c3\",\n    \"name\": \"First product\",\n    \"price\": 110\n}"
+				}
+			]
+		},
+		{
+			"name": "delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{local}}/products/b1bcfda6-0c69-42f3-a382-294a849529c3",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"products",
+						"b1bcfda6-0c69-42f3-a382-294a849529c3"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "OK",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/products/e176a66d-d421-49aa-a280-c402930d6241",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"products",
+								"e176a66d-d421-49aa-a280-c402930d6241"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "149"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": true,\n    \"message\": \"Product deleted successfully\",\n    \"data\": {\n        \"id\": \"e176a66d-d421-49aa-a280-c402930d6241\",\n        \"name\": \"Another product\",\n        \"price\": 200\n    }\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "local",
+			"value": "localhost:8080",
+			"type": "string"
+		}
+	]
+}
