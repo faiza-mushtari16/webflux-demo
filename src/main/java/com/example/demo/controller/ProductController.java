@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.common.dto.Response;
 import com.example.demo.model.Product;
 import com.example.demo.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -17,31 +18,31 @@ public class ProductController {
     private final ProductService service;
 
     @PostMapping
-    public Mono<ResponseEntity<Product>> create(@RequestBody Product product) {
+    public Mono<ResponseEntity<Response<Product>>> create(@RequestBody Product product) {
         return service.create(product)
                 .map(newProduct -> ResponseEntity.status(HttpStatus.CREATED).body(newProduct));
     }
 
     @GetMapping("/{id}")
-    public Mono<ResponseEntity<Product>> get(@PathVariable String id) {
+    public Mono<ResponseEntity<Response<Product>>> get(@PathVariable String id) {
         return service.get(id)
                 .map(ResponseEntity::ok)
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
     @GetMapping
-    public Flux<Product> list() {
+    public Flux<Response<Product>> list() {
         return service.list();
     }
 
     @PutMapping("/{id}")
-    public Mono<ResponseEntity<Product>> update(@PathVariable String id, @RequestBody Product product) {
+    public Mono<ResponseEntity<Response<Product>>> update(@PathVariable String id, @RequestBody Product product) {
         return service.update(id, product)
                 .map(ResponseEntity::ok);
     }
 
     @DeleteMapping("/{id}")
-    public Mono<ResponseEntity<Void>> delete(@PathVariable String id) {
+    public Mono<ResponseEntity<Response<Product>>> delete(@PathVariable String id) {
         return service.delete(id)
                 .thenReturn(ResponseEntity.noContent().build());
     }

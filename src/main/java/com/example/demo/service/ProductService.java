@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.common.dto.Response;
 import com.example.demo.model.Product;
 import com.example.demo.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,23 +16,23 @@ public class ProductService {
 
     private final ProductRepository repository;
 
-    public Mono<Product> create(Product product) {
+    public Mono<Response<Product>> create(Product product) {
         return repository.save(product.setId(UUID.randomUUID().toString()));
     }
 
-    public Mono<Product> get(String id) {
+    public Mono<Response<Product>> get(String id) {
         return repository.findById(id);
     }
 
-    public Mono<Void> delete(String id) {
+    public Mono<Response<Product>> delete(String id) {
         return repository.deleteById(id);
     }
 
-    public Flux<Product> list() {
+    public Flux<Response<Product>> list() {
         return repository.findAll();
     }
 
-    public Mono<Product> update(String id, Product product) {
+    public Mono<Response<Product>> update(String id, Product product) {
         return repository.save(product.setId(id));
     }
 }
