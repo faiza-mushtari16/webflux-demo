@@ -71,12 +71,12 @@ This configuration is set in the DynamoDbConfig.java file.
 ### 1. Build the project
 To build the project, run the following command:
 ```bash
-mvn clean install
+gradle clean build
 ```  
 ### 2. Run the app
 Start the application using:
 ```bash
-mvn spring-boot:run
+gradle bootRun
 ```  
 The app will be running at http://localhost:8080.
 
