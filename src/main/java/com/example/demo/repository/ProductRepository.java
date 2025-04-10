@@ -36,12 +36,7 @@ public class ProductRepository {
     public Mono<Response<Product>> findById(String id) {
         return Mono.defer(() -> Mono.fromFuture(() -> enhancedAsyncClient.table("Product", TableSchema.fromBean(Product.class))
                                 .getItem(r -> r.key(k -> k.partitionValue(id))))
-                        .map(product -> {
-                            if (product == null) {
-                                return new Response<Product>(false, "Product not found", null);
-                            }
-                            return ResponseHandler.createSuccessResponse("Product retrieved successfully", product);
-                        }))
+                        .map(product -> ResponseHandler.createSuccessResponse("Product retrieved successfully", product)))
                 .subscribeOn(Schedulers.boundedElastic())
                 .onErrorResume(e -> ResponseHandler.handleErrorResponse("retrieving product", e));
     }
@@ -50,20 +45,16 @@ public class ProductRepository {
         return Mono.defer(() -> Mono.fromFuture(() -> enhancedAsyncClient.table("Product", TableSchema.fromBean(Product.class))
                                 .getItem(r -> r.key(k -> k.partitionValue(id))))
                         .flatMap(product -> {
-                            if (product == null) {
-                                return Mono.just(new Response<Product>(false, "Product not found", null));
-                            }
-
-                    DeleteItemRequest deleteItemRequest = DeleteItemRequest.builder()
-                            .tableName("Product")
-                            .key(Map.of("id", AttributeValue.builder().s(id).build()))
-                            .build();
+                            DeleteItemRequest deleteItemRequest = DeleteItemRequest.builder()
+                                    .tableName("Product")
+                                    .key(Map.of("id", AttributeValue.builder().s(id).build()))
+                                    .build();
 
                             return Mono.fromFuture(() -> dynamoDbAsyncClient.deleteItem(deleteItemRequest))
-                                    .map(v -> ResponseHandler.createSuccessResponse("Product deleted successfully", product));
+                                    .map(v -> new Response<Product>(true, "Product deleted successfully", product));
                         }))
                 .subscribeOn(Schedulers.boundedElastic())
-                .onErrorResume(e -> ResponseHandler.handleErrorResponse("deleting product", e));
+                .onErrorResume(e -> Mono.just(new Response<Product>(false, "Error deleting product: " + e.getMessage(), null)));
     }
 
     public Flux<Response<Product>> findAll() {

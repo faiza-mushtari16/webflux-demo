@@ -38,12 +38,14 @@ public class ProductController {
     @PutMapping("/{id}")
     public Mono<ResponseEntity<Response<Product>>> update(@PathVariable String id, @RequestBody Product product) {
         return service.update(id, product)
-                .map(ResponseEntity::ok);
+                .map(ResponseEntity::ok)
+                .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
     public Mono<ResponseEntity<Response<Product>>> delete(@PathVariable String id) {
         return service.delete(id)
-                .thenReturn(ResponseEntity.noContent().build());
+                .map(ResponseEntity::ok)
+                .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 }
